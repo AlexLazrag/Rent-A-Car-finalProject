@@ -1,4 +1,14 @@
 package com.finalproject.rentacar.dto;
 
-public class CarUpdateRequest {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class UpdateCarRequest {
+    private Double pricePerDay;
 }

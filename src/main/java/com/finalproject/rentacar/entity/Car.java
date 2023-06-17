@@ -19,8 +19,9 @@ public class Car {
     private long id;
     private String brand;
     private String model;
-    private int seatsNumber;
-    private double pricePerDay;
+    @Column(columnDefinition = "int default 1", nullable = false)
+    private int seats;
+    private Double pricePerDay;
 
     @OneToMany(mappedBy = "car")
     @JsonBackReference
