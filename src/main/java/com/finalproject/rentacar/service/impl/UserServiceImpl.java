@@ -1,6 +1,7 @@
 package com.finalproject.rentacar.service.impl;
 
 import com.finalproject.rentacar.converter.UserConverter;
+import com.finalproject.rentacar.dto.UpdateUserRequest;
 import com.finalproject.rentacar.dto.UserRegisterRequest;
 import com.finalproject.rentacar.dto.UserResponse;
 import com.finalproject.rentacar.entity.User;
@@ -36,6 +37,22 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("User not found"));
         return userConverter.toResponse(user);
+    }
+
+    @Override
+    public UserResponse getUserByEmail(String email) {
+        User user = userRepository.findByEmail(email);
+        return userConverter.toResponse(user);
+    }
+
+    @Override
+    public UserResponse updateUserDetails(Long id, UpdateUserRequest request) {
+        User user = userRepository.findById(id).orElseThrow();
+
+        if (request.getPassword() != null && !request.getPassword().isBlank() && user.getPassword() != request.getPassword()){
+            user.setPassword(request.getPassword());
+        }
+        return userConverter.toResponse(userRepository.save(user));
     }
 
     @Override

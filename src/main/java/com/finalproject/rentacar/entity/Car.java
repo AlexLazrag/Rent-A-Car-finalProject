@@ -22,7 +22,7 @@ public class Car {
     private int seatsNumber;
     private double pricePerDay;
 
-    @OneToOne(mappedBy = "car")
+    @OneToMany(mappedBy = "car")
     @JsonBackReference
     private Set<Reservation> reservations;
 
