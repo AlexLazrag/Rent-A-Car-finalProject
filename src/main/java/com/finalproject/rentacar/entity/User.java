@@ -34,7 +34,8 @@ public class User {
 
     private Date registerDate;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    // Changed form OneToMany to OneToOne
+    @OneToOne(mappedBy = "user")
     @JsonBackReference
     private List<Reservation> reservations;
 
