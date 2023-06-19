@@ -2,7 +2,6 @@ package com.finalproject.rentacar.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,8 +36,8 @@ public class User {
     // Changed form OneToMany to OneToOne
     @OneToOne(mappedBy = "user")
     @JsonBackReference
-    private List<Reservation> reservations;
-
+//    private List<Reservation> reservations;
+    private Reservation reservation;
 
 
 

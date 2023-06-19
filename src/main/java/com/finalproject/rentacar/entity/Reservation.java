@@ -20,8 +20,8 @@ public class Reservation {
     private Date dateStart;
     private Date dateEnd;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @OneToOne
+//    @JoinColumn(name = "user_id")
     @JsonManagedReference
     private User user;
 
