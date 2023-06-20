@@ -25,8 +25,15 @@ public class ReservationController {
         return ResponseEntity.status(HttpStatus.FOUND)
                 .body(reservationService.findById(id));
     }
-@DeleteMapping(path = "/{id}")
-    public HttpStatus deleteReservation(@PathVariable Long id){
+
+    @GetMapping(path = "/findByUID/{id}")
+    public ResponseEntity<ReservationResponse> findByUserId(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.FOUND)
+                .body(reservationService.findByUserId(id));
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public HttpStatus deleteReservation(@PathVariable Long id) {
         reservationService.deleteReservation(id);
         return HttpStatus.ACCEPTED;
     }

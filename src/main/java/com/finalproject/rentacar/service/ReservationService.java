@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 public interface ReservationService {
     ReservationResponse bookReservation (ReservationRequest request);
     ReservationResponse findById(Long id);
+    ReservationResponse findByUserId(Long id);
     void deleteReservation(Long id);
 
 }

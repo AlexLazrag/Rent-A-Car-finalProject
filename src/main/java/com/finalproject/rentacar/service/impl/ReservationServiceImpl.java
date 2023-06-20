@@ -27,9 +27,6 @@ public class ReservationServiceImpl implements ReservationService {
         //TODO FIX CONNECTIONS
         Reservation reservation = reservationConverter.toReservation(request);
         Reservation savedReservation = reservationRepository.save(reservation);
-//        User user = savedReservation.getUser();
-//        user.setReservation(savedReservation);
-
 
         return reservationConverter.toResponse(savedReservation);
     }
@@ -38,6 +35,12 @@ public class ReservationServiceImpl implements ReservationService {
     public ReservationResponse findById(Long id) {
         Reservation reservation = reservationRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("Reservation not found"));
+        return reservationConverter.toResponse(reservation);
+    }
+
+    @Override
+    public ReservationResponse findByUserId(Long id) {
+        Reservation reservation = reservationRepository.findByUserId(id);
         return reservationConverter.toResponse(reservation);
     }
 
