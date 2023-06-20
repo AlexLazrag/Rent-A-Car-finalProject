@@ -23,14 +23,15 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public Reservation bookReservation(ReservationRequest request) {
+    public ReservationResponse bookReservation(ReservationRequest request) {
         //TODO FIX CONNECTIONS
-        Reservation savedReservation = reservationRepository.save(reservationConverter.toReservation(request));
-        User user = savedReservation.getUser();
-        user.setReservation(savedReservation);
+        Reservation reservation = reservationConverter.toReservation(request);
+        Reservation savedReservation = reservationRepository.save(reservation);
+//        User user = savedReservation.getUser();
+//        user.setReservation(savedReservation);
 
 
-        return savedReservation;
+        return reservationConverter.toResponse(savedReservation);
     }
 
     @Override

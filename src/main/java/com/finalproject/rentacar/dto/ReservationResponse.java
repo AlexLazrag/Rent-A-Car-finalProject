@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,6 +17,6 @@ public class ReservationResponse {
     private LocalDate dateEnd;
     private Long userId;
     private Long carId;
-    private Long daysBooked = ChronoUnit.DAYS.between(dateStart, dateEnd);
+    private Long daysBooked;
     private Double totalPrice;
 }
