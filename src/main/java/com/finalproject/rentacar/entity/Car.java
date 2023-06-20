@@ -2,6 +2,7 @@ package com.finalproject.rentacar.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,7 +24,7 @@ public class Car {
     private int seats;
     private Double pricePerDay;
 
-    @OneToMany(mappedBy = "car")
+    @OneToMany(mappedBy = "car", fetch = FetchType.EAGER)
     @JsonBackReference
     private Set<Reservation> reservations;
 

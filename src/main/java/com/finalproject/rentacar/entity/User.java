@@ -1,21 +1,18 @@
 package com.finalproject.rentacar.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
 @Entity(name = "users")
+@Getter
+@Setter
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,12 +30,9 @@ public class User {
 
     private Date registerDate;
 
-    // Changed form OneToMany to OneToOne
-    @OneToOne(mappedBy = "user")
-    @JsonBackReference
-//    private List<Reservation> reservations;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JoinColumn(name = "reservation_id")
     private Reservation reservation;
-
 
 
 }
