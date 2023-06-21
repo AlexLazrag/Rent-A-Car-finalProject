@@ -7,6 +7,7 @@ import com.finalproject.rentacar.entity.Reservation;
 import com.finalproject.rentacar.entity.User;
 import com.finalproject.rentacar.exceptions.NotFoundException;
 import com.finalproject.rentacar.repository.ReservationRepository;
+import com.finalproject.rentacar.repository.UserRepository;
 import com.finalproject.rentacar.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +26,11 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public ReservationResponse bookReservation(ReservationRequest request) {
         //TODO FIX CONNECTIONS
+        //TODO RESERVATION ID GOES UP AFTER EXCEPTION FOR DUPLICATE ENTRY (UID)!!! needs fix
         Reservation reservation = reservationConverter.toReservation(request);
         Reservation savedReservation = reservationRepository.save(reservation);
+//        User user = savedReservation.getUser();
+//        user.setReservation(savedReservation);
 
         return reservationConverter.toResponse(savedReservation);
     }
@@ -39,10 +43,17 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public ReservationResponse findByUserId(Long id) {
+    public ReservationResponse getByUserId(Long id) {
         Reservation reservation = reservationRepository.findByUserId(id);
         return reservationConverter.toResponse(reservation);
     }
+
+    @Override
+    public ReservationResponse getByCarId(Long id) {
+        Reservation reservation  = reservationRepository.findByCarId(id);
+        return reservationConverter.toResponse(reservation);
+    }
+
 
     @Override
     public void deleteReservation(Long id) {

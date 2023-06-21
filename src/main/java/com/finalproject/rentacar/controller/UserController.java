@@ -36,6 +36,12 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.FOUND)
                 .body(userService.getUserByEmail(email));
     }
+    @GetMapping(path = "/findByRID/{id}")
+    public ResponseEntity<UserResponse> getUserByRID(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.FOUND)
+                .body(userService.getUserByRID(id));
+    }
+
     @DeleteMapping(path = "/deleteUser/{id}")
     public HttpStatus deleteUser(@PathVariable Long id){
         userService.deleteUser(id);

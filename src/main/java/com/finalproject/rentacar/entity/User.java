@@ -28,8 +28,6 @@ public class User {
 
     private String password;
 
-    private Date registerDate;
-
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @JoinColumn(name = "reservation_id")
     private Reservation reservation;

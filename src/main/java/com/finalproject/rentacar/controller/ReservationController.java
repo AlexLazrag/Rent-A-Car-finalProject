@@ -2,8 +2,8 @@ package com.finalproject.rentacar.controller;
 
 import com.finalproject.rentacar.dto.ReservationRequest;
 import com.finalproject.rentacar.dto.ReservationResponse;
-import com.finalproject.rentacar.entity.Reservation;
 import com.finalproject.rentacar.service.ReservationService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +29,12 @@ public class ReservationController {
     @GetMapping(path = "/findByUID/{id}")
     public ResponseEntity<ReservationResponse> findByUserId(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.FOUND)
-                .body(reservationService.findByUserId(id));
+                .body(reservationService.getByUserId(id));
+    }
+@GetMapping(path ="/findByCID/{id}")
+    public  ResponseEntity<ReservationResponse> findByCarId(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.FOUND)
+                .body(reservationService.getByCarId(id));
     }
 
     @DeleteMapping(path = "/{id}")

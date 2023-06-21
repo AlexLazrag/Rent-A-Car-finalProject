@@ -9,10 +9,9 @@ import org.springframework.stereotype.Service;
 public interface UserService {
 
     UserResponse saveUser(UserRegisterRequest request);
-
     UserResponse getUser(Long id);
     UserResponse getUserByEmail(String email);
     UserResponse updateUserDetails(Long id, UpdateUserRequest request);
-
+    UserResponse getUserByRID(Long id);
     void deleteUser(Long id);
 }

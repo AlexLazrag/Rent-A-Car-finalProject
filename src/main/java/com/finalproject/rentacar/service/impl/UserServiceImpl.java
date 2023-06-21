@@ -26,9 +26,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponse saveUser(UserRegisterRequest request) {
         User user = userConverter.toUser(request);
-
+        User existingUser = userRepository.findByEmail(user.getEmail());
+        if (existingUser!=null){
+            throw new IllegalArgumentException("User with email " + user.getEmail() + " already exists");
+        }
         User savedUser = userRepository.save(user);
-
         return userConverter.toResponse(savedUser);
     }
 
@@ -53,6 +55,12 @@ public class UserServiceImpl implements UserService {
             user.setPassword(request.getPassword());
         }
         return userConverter.toResponse(userRepository.save(user));
+    }
+
+    @Override
+    public UserResponse getUserByRID(Long id) {
+        User user = userRepository.findByReservationId(id);
+        return userConverter.toResponse(user);
     }
 
     @Override
