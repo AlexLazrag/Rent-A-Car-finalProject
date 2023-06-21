@@ -20,6 +20,7 @@ public class UserConverter {
 
     public UserResponse toResponse(User savedUser) {
         return new UserResponse(
+                savedUser.getId(),
                 savedUser.getEmail(),
                 savedUser.getFirstName(),
                 savedUser.getLastName());

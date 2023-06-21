@@ -20,8 +20,10 @@ public class UserController {
 
     @Operation(summary = "Register user")
     @PostMapping(path = "/register")
-    public ResponseEntity<UserResponse> registerUser(@Valid @RequestBody UserRegisterRequest request) {
-        UserResponse response = userService.saveUser(request);
+    public ResponseEntity<String> registerUser(@Valid @RequestBody UserRegisterRequest request) {
+        UserResponse userResponse = userService.saveUser(request);
+        String response = String.format("User:%n %s%n %s%n was created with id %s",
+                userResponse.getFirstName(), userResponse.getLastName(), userResponse.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
