@@ -12,6 +12,11 @@ import com.finalproject.rentacar.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
 @Service
 public class ReservationServiceImpl implements ReservationService {
     private final ReservationRepository reservationRepository;
@@ -58,5 +63,11 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public void deleteReservation(Long id) {
         reservationRepository.deleteById(id);
+    }
+
+    @Override
+    public Set<Reservation> findReservationByPeriod(LocalDate dateStart, LocalDate dateEnd) {
+        return reservationRepository.getReservationByIntervalWithNative(dateStart, dateEnd).orElse(Collections.emptySet());
+
     }
 }
