@@ -1,0 +1,14 @@
+spring:
+  server:
+    error:
+    include-message: always
+    include-binding-errors: always
+  datasource:
+    url: jdbc:h2://mem:db;DB_CONSE_DELAY=-1
+    username: sa
+    password: sa
+    driver-class-name: com.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true

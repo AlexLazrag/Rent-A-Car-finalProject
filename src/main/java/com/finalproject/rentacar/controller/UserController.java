@@ -33,13 +33,13 @@ public class UserController {
                 .body(userService.getUser(id));
     }
 
-    @GetMapping(path = "/email/{email}")
-    public ResponseEntity<UserResponse> getUserByEmail(@PathVariable String email) {
+    @GetMapping(path = "/email")
+    public ResponseEntity<UserResponse> getUserByEmail(@RequestParam("email") String email) {
         return ResponseEntity.status(HttpStatus.FOUND)
                 .body(userService.getUserByEmail(email));
     }
-    @GetMapping(path = "/findByRID/{id}")
-    public ResponseEntity<UserResponse> getUserByRID(@PathVariable Long id){
+    @GetMapping(path = "/findByRID")
+    public ResponseEntity<UserResponse> getUserByRID(@RequestParam("id") Long id){
         return ResponseEntity.status(HttpStatus.FOUND)
                 .body(userService.getUserByRID(id));
     }

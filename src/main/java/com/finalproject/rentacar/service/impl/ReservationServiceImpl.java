@@ -5,6 +5,7 @@ import com.finalproject.rentacar.dto.ReservationRequest;
 import com.finalproject.rentacar.dto.ReservationResponse;
 import com.finalproject.rentacar.entity.Reservation;
 import com.finalproject.rentacar.entity.User;
+import com.finalproject.rentacar.exceptions.DuplicateEntityException;
 import com.finalproject.rentacar.exceptions.NotFoundException;
 import com.finalproject.rentacar.repository.ReservationRepository;
 import com.finalproject.rentacar.repository.UserRepository;
@@ -30,13 +31,15 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public ReservationResponse bookReservation(ReservationRequest request) {
-        //TODO FIX CONNECTIONS
-        //TODO RESERVATION ID GOES UP AFTER EXCEPTION FOR DUPLICATE ENTRY (UID)!!! needs fix
         Reservation reservation = reservationConverter.toReservation(request);
-        Reservation savedReservation = reservationRepository.save(reservation);
-//        User user = savedReservation.getUser();
-//        user.setReservation(savedReservation);
+        Reservation existingUID = reservationRepository.findByUserId(request.getUserId());
+        if (existingUID != null){
+            throw new DuplicateEntityException("User with id '" + existingUID.getUser().getId() +
+                    "' has already reserved car with id '" + existingUID.getCar().getId() + "'");
 
+        }
+
+        Reservation savedReservation = reservationRepository.save(reservation);
         return reservationConverter.toResponse(savedReservation);
     }
 

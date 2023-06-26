@@ -30,8 +30,7 @@ public class UserServiceImpl implements UserService {
         User existingUser = userRepository.findByEmail(user.getEmail());
 
         if (existingUser != null) {
-            //TODO CHANGE MESSAGE
-            throw new DuplicateEntityException("Email `" + existingUser.getEmail() + "` is already registered");
+            throw new DuplicateEntityException("Email '" + existingUser.getEmail() + "' is already registered");
         }
         User savedUser = userRepository.save(user);
         return userConverter.toResponse(savedUser);

@@ -4,10 +4,7 @@ import com.finalproject.rentacar.converter.ReservationConverter;
 import com.finalproject.rentacar.dto.ReservationRequest;
 import com.finalproject.rentacar.dto.ReservationResponse;
 import com.finalproject.rentacar.service.ReservationService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,14 +32,14 @@ public class ReservationController {
                 .body(reservationService.findById(id));
     }
 
-    @GetMapping(path = "/findByUID/{id}")
-    public ResponseEntity<ReservationResponse> findByUserId(@PathVariable Long id) {
+    @GetMapping(path = "/findByUID")
+    public ResponseEntity<ReservationResponse> findByUserId(@RequestParam("id") Long id) {
         return ResponseEntity.status(HttpStatus.FOUND)
                 .body(reservationService.getByUserId(id));
     }
 
-    @GetMapping(path = "/findByCID/{id}")
-    public ResponseEntity<ReservationResponse> findByCarId(@PathVariable Long id) {
+    @GetMapping(path = "/findByCID")
+    public ResponseEntity<ReservationResponse> findByCarId(@RequestParam("id") Long id) {
         return ResponseEntity.status(HttpStatus.FOUND)
                 .body(reservationService.getByCarId(id));
     }
