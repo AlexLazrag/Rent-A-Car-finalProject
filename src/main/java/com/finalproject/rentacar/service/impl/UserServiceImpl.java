@@ -5,6 +5,7 @@ import com.finalproject.rentacar.dto.UpdateUserRequest;
 import com.finalproject.rentacar.dto.UserRegisterRequest;
 import com.finalproject.rentacar.dto.UserResponse;
 import com.finalproject.rentacar.entity.User;
+import com.finalproject.rentacar.exceptions.DuplicateEntityException;
 import com.finalproject.rentacar.exceptions.NotFoundException;
 import com.finalproject.rentacar.repository.UserRepository;
 import com.finalproject.rentacar.service.UserService;
@@ -27,8 +28,10 @@ public class UserServiceImpl implements UserService {
     public UserResponse saveUser(UserRegisterRequest request) {
         User user = userConverter.toUser(request);
         User existingUser = userRepository.findByEmail(user.getEmail());
-        if (existingUser!=null){
-            throw new IllegalArgumentException("User with email " + user.getEmail() + " already exists");
+
+        if (existingUser != null) {
+            //TODO CHANGE MESSAGE
+            throw new DuplicateEntityException("Email `" + existingUser.getEmail() + "` is already registered");
         }
         User savedUser = userRepository.save(user);
         return userConverter.toResponse(savedUser);

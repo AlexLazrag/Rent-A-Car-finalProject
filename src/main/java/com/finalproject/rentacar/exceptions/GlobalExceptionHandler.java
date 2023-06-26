@@ -48,6 +48,12 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.badRequest().body(errorMessage);
     }
-
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(DuplicateEntityException.class)
+    public ResponseEntity<ErrorMessage> handleDuplicateEmailException(DuplicateEntityException ex) {
+        ErrorMessage errorMessage = new ErrorMessage();
+        errorMessage.setMessage(ex.getErrorMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMessage);
+    }
 
 }
