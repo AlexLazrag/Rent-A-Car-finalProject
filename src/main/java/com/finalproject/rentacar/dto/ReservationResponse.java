@@ -18,5 +18,5 @@ public class ReservationResponse {
     private Long userId;
     private Long carId;
     private Long daysBooked;
-    private Double totalPrice;
+    private String totalPrice;
 }

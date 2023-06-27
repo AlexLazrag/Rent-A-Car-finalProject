@@ -2,6 +2,7 @@ package com.finalproject.rentacar.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 
 import java.util.Date;
@@ -20,12 +21,12 @@ public class User {
 
     @Column(length = 30)
     private String firstName;
-
+    @Column(length = 30)
     private String lastName;
 
     @Column(unique = true)
     private String email;
-
+    @Column(length = 30)
     private String password;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)

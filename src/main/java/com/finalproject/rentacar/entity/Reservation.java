@@ -20,7 +20,7 @@ public class Reservation {
     private LocalDate dateStart;
     private LocalDate dateEnd;
     private Long daysBooked;
-    private Double totalPrice;
+    private String totalPrice;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")

@@ -11,6 +11,8 @@ import com.finalproject.rentacar.repository.CarRepository;
 import com.finalproject.rentacar.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.text.DecimalFormat;
 import java.time.temporal.ChronoUnit;
 
 @Component
@@ -28,9 +30,13 @@ public class ReservationConverter {
                 .dateStart(request.getDateStart())
                 .dateEnd(request.getDateEnd())
                 .daysBooked(getDaysBooked(request))
-                .totalPrice(getPrice(request.getCarId()) * getDaysBooked(request))
+                .totalPrice(formatDouble(getPrice(request.getCarId()) * getDaysBooked(request)))
                 .build();
         return reservation;
+    }
+    public String formatDouble(Double totalPrice){
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        return decimalFormat.format(totalPrice);
     }
 
     public ReservationResponse toResponse(Reservation savedReservation) {
