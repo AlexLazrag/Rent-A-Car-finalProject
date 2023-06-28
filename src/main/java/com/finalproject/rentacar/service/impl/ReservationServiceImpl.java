@@ -33,6 +33,8 @@ public class ReservationServiceImpl implements ReservationService {
     public ReservationResponse bookReservation(ReservationRequest request) {
         Reservation reservation = reservationConverter.toReservation(request);
         Reservation existingUID = reservationRepository.findByUserId(request.getUserId());
+
+        //Прави се проверка дали е направена резервация за с това userId, за да не се инкрементира reservationId ненужно.
         if (existingUID != null){
             throw new DuplicateEntityException("User with id '" + existingUID.getUser().getId() +
                     "' has already reserved car with id '" + existingUID.getCar().getId() + "'");

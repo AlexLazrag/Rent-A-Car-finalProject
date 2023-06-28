@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService {
         User user = userConverter.toUser(request);
         User existingUser = userRepository.findByEmail(user.getEmail());
 
+        //Прави се проверка дали съществува вече user с този email, за да не се инкрементира userId ненужно.
         if (existingUser != null) {
             throw new DuplicateEntityException("Email '" + existingUser.getEmail() + "' is already registered");
         }
