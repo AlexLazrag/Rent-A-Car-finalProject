@@ -39,9 +39,16 @@ public class ReservationController {
     }
 
     @GetMapping(path = "/findByCID")
-    public ResponseEntity<ReservationResponse> findByCarId(@RequestParam("id") Long id) {
+    public ResponseEntity<Set<ReservationResponse>> findByCarId(@RequestParam("id") Long id) {
+        Set<ReservationResponse> reservationResponses = new HashSet<>();
+        reservationService.getByCarId(id).forEach(
+                reservation -> {
+                    ReservationResponse reservationResponse = reservationConverter.toResponse(reservation);
+                    reservationResponses.add(reservationResponse);
+                }
+        );
         return ResponseEntity.status(HttpStatus.FOUND)
-                .body(reservationService.getByCarId(id));
+                .body(reservationResponses);
     }
 
     @GetMapping(path = "/period")

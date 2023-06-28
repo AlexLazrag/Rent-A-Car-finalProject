@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -59,11 +60,9 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public ReservationResponse getByCarId(Long id) {
-        Reservation reservation  = reservationRepository.findByCarId(id);
-        return reservationConverter.toResponse(reservation);
+    public Set<Reservation> getByCarId(Long id) {
+        return reservationRepository.findByCarId(id);
     }
-
 
     @Override
     public void deleteReservation(Long id) {

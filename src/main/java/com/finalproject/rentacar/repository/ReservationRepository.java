@@ -13,7 +13,7 @@ import java.util.Set;
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
     Reservation findByUserId(Long id);
 
-    Reservation findByCarId(Long id);
+    Set<Reservation> findByCarId(Long id);
 
     @Query(nativeQuery = true, value = "SELECT * FROM reservations " +
             "WHERE date_start BETWEEN :dateStart AND :dateEnd " +
