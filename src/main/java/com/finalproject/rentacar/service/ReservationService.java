@@ -2,6 +2,8 @@ package com.finalproject.rentacar.service;
 
 import com.finalproject.rentacar.dto.ReservationRequest;
 import com.finalproject.rentacar.dto.ReservationResponse;
+import com.finalproject.rentacar.dto.UpdateReservationCarRequest;
+import com.finalproject.rentacar.dto.UpdateReservationDatesRequest;
 import com.finalproject.rentacar.entity.Reservation;
 import org.springframework.stereotype.Service;
 
@@ -18,4 +20,6 @@ public interface ReservationService {
 
     Set<Reservation> findReservationByPeriod(LocalDate dateStart, LocalDate dateEnd);
 
+    ReservationResponse changeCar(Long id , UpdateReservationCarRequest request);
+    ReservationResponse changeDates(Long id, UpdateReservationDatesRequest request);
 }

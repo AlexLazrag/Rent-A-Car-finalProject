@@ -3,31 +3,36 @@ package com.finalproject.rentacar.service.impl;
 import com.finalproject.rentacar.converter.ReservationConverter;
 import com.finalproject.rentacar.dto.ReservationRequest;
 import com.finalproject.rentacar.dto.ReservationResponse;
+import com.finalproject.rentacar.dto.UpdateReservationCarRequest;
+import com.finalproject.rentacar.dto.UpdateReservationDatesRequest;
+import com.finalproject.rentacar.entity.Car;
 import com.finalproject.rentacar.entity.Reservation;
-import com.finalproject.rentacar.entity.User;
+
 import com.finalproject.rentacar.exceptions.DuplicateEntityException;
 import com.finalproject.rentacar.exceptions.NotFoundException;
+import com.finalproject.rentacar.repository.CarRepository;
 import com.finalproject.rentacar.repository.ReservationRepository;
-import com.finalproject.rentacar.repository.UserRepository;
+
 import com.finalproject.rentacar.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
     private final ReservationRepository reservationRepository;
     private final ReservationConverter reservationConverter;
+    private final CarRepository carRepository;
 
     @Autowired
-    public ReservationServiceImpl(ReservationRepository reservationRepository, ReservationConverter reservationConverter) {
+    public ReservationServiceImpl(ReservationRepository reservationRepository, ReservationConverter reservationConverter,
+                                  CarRepository carRepository) {
         this.reservationRepository = reservationRepository;
         this.reservationConverter = reservationConverter;
+        this.carRepository = carRepository;
     }
 
     @Override
@@ -73,5 +78,24 @@ public class ReservationServiceImpl implements ReservationService {
     public Set<Reservation> findReservationByPeriod(LocalDate dateStart, LocalDate dateEnd) {
         return reservationRepository.getReservationByIntervalWithNative(dateStart, dateEnd).orElse(Collections.emptySet());
 
+    }
+
+    @Override
+    public ReservationResponse changeCar(Long id, UpdateReservationCarRequest request) {
+        Reservation reservation = reservationRepository.findById(id).orElseThrow();
+        Car car = carRepository.findById(request.getCarId()).orElseThrow();
+
+        if (request.getCarId() !=null && reservation.getCar().getId() != request.getCarId()){
+            reservation.setCar(car);
+        }
+        return reservationConverter.toResponse(reservationRepository.save(reservation));
+    }
+
+    @Override
+    public ReservationResponse changeDates(Long id, UpdateReservationDatesRequest request) {
+        Reservation reservation = reservationRepository.findById(id).orElseThrow();
+        reservation.setDateStart(request.getDateStart());
+        reservation.setDateEnd(request.getDateEnd());
+        return reservationConverter.toResponse(reservationRepository.save(reservation));
     }
 }

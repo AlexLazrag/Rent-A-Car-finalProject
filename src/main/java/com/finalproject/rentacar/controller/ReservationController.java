@@ -3,6 +3,8 @@ package com.finalproject.rentacar.controller;
 import com.finalproject.rentacar.converter.ReservationConverter;
 import com.finalproject.rentacar.dto.ReservationRequest;
 import com.finalproject.rentacar.dto.ReservationResponse;
+import com.finalproject.rentacar.dto.UpdateReservationCarRequest;
+import com.finalproject.rentacar.dto.UpdateReservationDatesRequest;
 import com.finalproject.rentacar.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -63,6 +65,19 @@ public class ReservationController {
                 }
         );
         return ResponseEntity.status(HttpStatus.FOUND).body(reservationResponses);
+    }
+
+    @PutMapping(path = "/changeReservationCar/{id}")
+    public ResponseEntity<ReservationResponse> changeCar(@PathVariable Long id,
+                                                         @RequestBody UpdateReservationCarRequest request) {
+        ReservationResponse reservationResponse = reservationService.changeCar(id, request);
+        return ResponseEntity.status(HttpStatus.OK).body(reservationResponse);
+    }
+    @PutMapping(path = "/changeReservationDates/{id}")
+    public ResponseEntity<ReservationResponse> changeDates(@PathVariable Long id,
+                                                           @RequestBody UpdateReservationDatesRequest request){
+        ReservationResponse reservationResponse = reservationService.changeDates(id, request);
+        return ResponseEntity.status(HttpStatus.OK).body(reservationResponse);
     }
 
     @DeleteMapping(path = "/{id}")
