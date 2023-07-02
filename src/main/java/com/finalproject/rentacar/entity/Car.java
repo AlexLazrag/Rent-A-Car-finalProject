@@ -23,7 +23,7 @@ public class Car {
     private int seats;
     private Double pricePerDay;
 
-    @OneToMany(mappedBy = "car", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "car", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonBackReference
     private Set<Reservation> reservations;
 
